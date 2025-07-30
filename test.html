@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Calendar with Date Picker</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", sans-serif;
+      background-color: #fff;
+      padding: 2rem;
+      color: #111;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calendar-header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .calendar-header .date-range {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-top: 2px solid #eee;
+    }
+
+    .day-column {
+      border-left: 1px solid #eee;
+      padding: 1rem;
+      box-sizing: border-box;
+      min-height: 400px;
+    }
+
+    .day-column:first-child {
+      border-left: none;
+    }
+
+    .day-header {
+      font-weight: 600;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .day-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #e53935;
+    }
+
+    .active .day-number {
+      color: white;
+      background: #e53935;
+      padding: 0.2rem 0.7rem;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .event {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .event time {
+      color: #e53935;
+      font-weight: 600;
+      display: block;
+    }
+
+    .event-title {
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+
+    .event-location {
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    .datepicker {
+      font-size: 0.95rem;
+      padding: 6px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .calendar-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-header">
+    <div>
+      <h1>Calendar of events in Odessa</h1>
+      <div class="date-range" id="dateRange">19–24 August</div>
+    </div>
+    <div>
+      <label for="dateInput">📅 Select Date: </label>
+      <input type="date" id="dateInput" class="datepicker">
+    </div>
+  </div>
+
+  <div class="calendar-grid" id="calendarGrid">
+    <!-- 요일/일자 UI는 JS에서 동적으로 채워짐 -->
+  </div>
+
+  <script>
+    const calendarGrid = document.getElementById('calendarGrid');
+    const dateInput = document.getElementById('dateInput');
+    const dateRange = document.getElementById('dateRange');
+
+    const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function formatDate(date) {
+      return `${date.getDate()}`;
+    }
+
+    function getMonthName(date) {
+      return date.toLocaleString('en-US', { month: 'long' });
+    }
+
+    function renderWeek(startDate) {
+      calendarGrid.innerHTML = '';
+      const startDay = new Date(startDate);
+      startDay.setDate(startDay.getDate() - startDay.getDay() + 1); // 시작일 = 월요일
+
+      let endDate = new Date(startDay);
+      endDate.setDate(startDay.getDate() + 5);
+
+      dateRange.textContent = `${startDay.getDate()}–${endDate.getDate()} ${getMonthName(startDay)}`;
+
+      for (let i = 0; i < 6; i++) {
+        const day = new Date(startDay);
+        day.setDate(startDay.getDate() + i);
+
+        const dayColumn = document.createElement('div');
+        dayColumn.className = 'day-column' + (i === 0 ? ' active' : '');
+
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day-header';
+        dayHeader.textContent = weekdays[i];
+
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'day-number';
+        dayNumber.textContent = day.getDate();
+
+        dayColumn.appendChild(dayHeader);
+        dayColumn.appendChild(dayNumber);
+
+        calendarGrid.appendChild(dayColumn);
+      }
+    }
+
+    // 기본: 오늘 기준 주간 표시
+    const today = new Date();
+    renderWeek(today);
+
+    // 날짜 선택 시 재렌더
+    dateInput.addEventListener('change', (e) => {
+      const selectedDate = new Date(e.target.value);
+      renderWeek(selectedDate);
+    });
+  </script>
+</body>
+</html>
