@@ -1,33 +1,147 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>WEB1 - html</title>
-  <mata charset="utf-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>January 2020 Calendar</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 2rem;
+      color: #111;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .calendar-description {
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background-color: #eee;
+    }
+
+    .day {
+      background-color: #fff;
+      padding: 1rem;
+      min-height: 100px;
+      border: 1px solid #eee;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .day-header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .event {
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+      color: #333;
+    }
+
+    .event.time {
+      color: #ff5722;
+    }
+
+    .friday {
+      border-left: 3px solid #ff5722;
+      background-color: #fff9f6;
+    }
+
+    .add-event-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #111;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .add-event-button:hover {
+      background: #333;
+    }
+
+    .day-name {
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 0.25rem;
+    }
+  </style>
 </head>
 <body>
-  <h1><a href="index.html">WEB</a></h1>
-  <ol>
-    <li><a href="1.html">html</a></li>
-    <li><a href="2.html">css</a></li>
-    <li><a href="3.html">JavaScript</a></li>
-  </ol>
+  <a href="#" class="add-event-button">Add Event</a>
+  <div class="calendar-header">
+    <div>
+      <h1>Jan’ 2020</h1>
+      <div class="calendar-description">
+        Here are all your planned events. You will find information for each event as well you can plan new one.
+      </div>
+    </div>
+  </div>
 
-<h2>Hye soo</h2>
-<p><a href="https://www.w3.org/TR/html5/" target="_blank" title="html5specification">
-Hypertext Markup Language (HTML)</a> is the standard markup language for <strong>creating <u>web</u> pages</strong> and web applications.
-
-<!--h1~6 헤드폰트 크기 설정 strong태그는 두께, u태그는 선 -->
-
-<!--단락을 표현할 때는 p태그 줄 바꿈은 br태그 사용, 단 P태그는 css로 자유 조정 가능 -->
-
-<p>HTML describes the structure of a web page semantically and originally included cues for the appearance of the document.</p><p style="margin-top:45px;">
-
-<img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7648.png">
-<br>
-<br>
-<img src="8.jpg" width="50%">
-
-<br><br>HTML elements are the building blocks of HTML pages. With HTML constructs, images and other objects, such as interactive forms, may be embedded into the rendered page. It provides a means to create structured documents by denoting structural semantics for text such as headings, paragraphs, lists, links, quotes and other items. HTML elements are delineated by tags, written using angle brackets.
-
+  <div class="calendar-grid">
+    <!-- Example week: -->
+    <div class="day">
+      <div class="day-name">Mon</div>
+      <div class="day-header">30</div>
+    </div>
+    <div class="day">
+      <div class="day-name">Tue</div>
+      <div class="day-header">31</div>
+    </div>
+    <div class="day">
+      <div class="day-name">Wed</div>
+      <div class="day-header">01</div>
+      <div class="event">🎉 New Year</div>
+    </div>
+    <div class="day">
+      <div class="day-name">Thu</div>
+      <div class="day-header">02</div>
+      <div class="event">📊 Project overview</div>
+      <div class="event">🍽 Lunch w/ Sabrina</div>
+    </div>
+    <div class="day friday">
+      <div class="day-name">Fri</div>
+      <div class="day-header">03</div>
+      <div class="event time">🛠 Workplace safety</div>
+      <div class="event time">👥 Team alignment</div>
+    </div>
+    <div class="day">
+      <div class="day-name">Sat</div>
+      <div class="day-header">04</div>
+      <div class="event">🍞 Breakfast w/ Steven</div>
+    </div>
+    <div class="day">
+      <div class="day-name">Sun</div>
+      <div class="day-header">05</div>
+      <div class="event">🍽 Lunch w/ Steven</div>
+      <div class="event">🏒 Flames vs Wild</div>
+    </div>
+    <!-- ... 이하 날짜 반복적으로 구성 -->
+  </div>
 </body>
 </html>
